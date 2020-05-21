@@ -3,9 +3,13 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config();
+const mongoose = require('mongoose');
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+
+mongoose.connect(process.env.MONGO_ATLAS_CREDENTIAL.replace('<password>', process.env.MONGO_ATLAS_PW), {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(morgan('dev')); // HTTP request logger
 app.use(bodyParser.urlencoded({ extended: true}));
